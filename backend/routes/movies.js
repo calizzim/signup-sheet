@@ -5,7 +5,7 @@ const db = require('mongoose');
 
 const Joi = require('joi');
 const idSchema = require('../schema/id');
-const { Movie, movieSchema, movieSchemaForUpdate } = require('../schema/movie');
+const { Movie, movieSchema, movieSchemaForUpdate } = require('../movie');
 
 const _ = require('underscore');
 
