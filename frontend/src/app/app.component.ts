@@ -9,7 +9,7 @@ import { HttpClient } from '@angular/common/http';
 export class AppComponent implements OnInit{
   title = 'frontend';
   names:[any];
-  url = 'http://localhost:3000/'
+  url = '/api/'
   constructor(private http:HttpClient) {}
   ngOnInit() {this.getSheet()}
 
