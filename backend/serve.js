@@ -7,7 +7,7 @@ app = express.Router();
 app.use(express.static(path.join(__dirname,'../frontend/dist/frontend')));
 
 app.all('/', (req, res) => {
-  res.status(200).sendFile(__dirname + 'frontend/dist/frontend/index.html');
+  res.status(200).sendFile(path.join(__dirname + '../frontend/dist/frontend/index.html'));
 });
 
 module.exports = app;
