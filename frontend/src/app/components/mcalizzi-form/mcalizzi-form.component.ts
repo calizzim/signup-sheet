@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, Input, EventEmitter } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 @Component({
@@ -7,64 +7,8 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
   styleUrls: ['./mcalizzi-form.component.css']
 })
 export class McalizziFormComponent implements OnInit {
-  inputForm = {
-    title: 'Form Testing',
-    groups: [
-      {
-        title: 'account information',
-        components: [
-          {
-            type: 'input',
-            name: 'username',
-            validators: [
-              Validators.required
-            ]
-          },
-          {
-            type: 'input',
-            name: 'password',
-            validators: [
-              Validators.required,
-              Validators.minLength(8)
-            ]
-          }
-        ]
-      },
-      {
-        title: 'adress information',
-        components: [
-          {
-            type: 'input',
-            name: 'street adress',
-            validators: [
-              Validators.required
-            ]
-          },
-          {
-            type: 'input',
-            name: 'city',
-            validators: [
-              Validators.required,
-            ]
-          },
-          {
-            type: 'input',
-            name: 'state',
-            validators: [
-              Validators.required,
-            ]
-          },
-          {
-            type: 'input',
-            name: 'zipcode',
-            validators: [
-              Validators.required,
-            ]
-          }
-        ]
-      },
-    ]
-  }
+  @Input() inputForm;
+  @Output('formSubmitted') returnForm = new EventEmitter();
 
   form = new FormGroup({});
 
@@ -89,20 +33,7 @@ export class McalizziFormComponent implements OnInit {
   }
 
   
-  constructor() { 
-    for(let group of this.inputForm.groups){
-      let formGroup = new FormGroup({});
-      for(let component of group.components){
-        let formControl = new FormControl('',component.validators);
-        formGroup.addControl(component.name, formControl);
-      }
-      this.form.addControl(group.title,formGroup)
-    }
-  }
-  
-  checkStatus() {
-    console.log(this.form.get('username'));
-  }
+  constructor() { }
   
   onSubmit() {
     //make sure that the form is valid
@@ -116,12 +47,18 @@ export class McalizziFormComponent implements OnInit {
       }
       returnForm[group.title] = formGroup;
     }
-    console.log(returnForm);
+    this.returnForm.emit(returnForm)
   }
-
+  
   ngOnInit(): void {
-    console.log(this.form)
-
+    for(let group of this.inputForm.groups){
+      let formGroup = new FormGroup({});
+      for(let component of group.components){
+        let formControl = new FormControl('',component.validators);
+        formGroup.addControl(component.name, formControl);
+      }
+      this.form.addControl(group.title,formGroup)
+    }
   }
-
+  
 }
