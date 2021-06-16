@@ -1,10 +1,11 @@
 <div class="container">
+    <h1>{{ inputForm.title }}</h1>
     <form [formGroup]="form">
         <div *ngFor="let formGroup of inputForm.groups">
-            <h3>{{formGroup.title}}</h3>
+            <h3>{{formGroup.title | titlecase}}</h3>
             <div class="row" [formGroupName]="formGroup.title">
                 <div class="col-12 col-md-6 col-xl-4 mb-3" *ngFor="let field of formGroup.components">
-                    <label class='form-label'>{{ field.name }}</label>
+                    <label class='form-label'>{{ field.name | titlecase}}</label>
                     <input [formControlName]="field.name" class="form-control"
                     [class.is-valid]="isValid(formGroup.title,field.name)"
                     [class.is-invalid]="isInvalid(formGroup.title,field.name)">
@@ -13,5 +14,6 @@
                 </div>
             </div>
         </div>
+        <button class="btn btn-success" (click)="onSubmit()">Submit</button>
     </form>
 </div>

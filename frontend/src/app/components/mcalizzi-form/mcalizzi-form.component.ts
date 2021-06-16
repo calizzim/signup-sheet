@@ -8,21 +8,21 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 })
 export class McalizziFormComponent implements OnInit {
   inputForm = {
-    title: 'exampleForm',
+    title: 'Form Testing',
     groups: [
       {
-        title: 'Account Information',
+        title: 'account information',
         components: [
           {
             type: 'input',
-            name: 'Username',
+            name: 'username',
             validators: [
               Validators.required
             ]
           },
           {
             type: 'input',
-            name: 'Password',
+            name: 'password',
             validators: [
               Validators.required,
               Validators.minLength(8)
@@ -31,37 +31,34 @@ export class McalizziFormComponent implements OnInit {
         ]
       },
       {
-        title: 'Adress Information',
+        title: 'adress information',
         components: [
           {
             type: 'input',
-            name: 'Street Adress',
+            name: 'street adress',
             validators: [
               Validators.required
             ]
           },
           {
             type: 'input',
-            name: 'City',
+            name: 'city',
             validators: [
               Validators.required,
-              Validators.minLength(8)
             ]
           },
           {
             type: 'input',
-            name: 'State',
+            name: 'state',
             validators: [
               Validators.required,
-              Validators.minLength(8)
             ]
           },
           {
             type: 'input',
-            name: 'Zipcode',
+            name: 'zipcode',
             validators: [
               Validators.required,
-              Validators.minLength(8)
             ]
           }
         ]
@@ -102,13 +99,29 @@ export class McalizziFormComponent implements OnInit {
       this.form.addControl(group.title,formGroup)
     }
   }
-
+  
   checkStatus() {
     console.log(this.form.get('username'));
+  }
+  
+  onSubmit() {
+    //make sure that the form is valid
+    if(!this.form.valid) return
+    //construct the return object
+    let returnForm = {};
+    for(let group of this.inputForm.groups){
+      let formGroup = {};
+      for(let component of group.components){
+        formGroup[component.name] = this.form.get([group.title, component.name]).value;
+      }
+      returnForm[group.title] = formGroup;
+    }
+    console.log(returnForm);
   }
 
   ngOnInit(): void {
     console.log(this.form)
+
   }
 
 }
