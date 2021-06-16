@@ -63,8 +63,8 @@ export class SignupSheetComponent implements OnInit{
             name: 'lastName',
             validators: [
               Validators.required,
-              Validators.minLength(8),
-              Validators.maxLength(20)
+              Validators.minLength(3),
+              Validators.maxLength(25)
             ]
           }
         ]
