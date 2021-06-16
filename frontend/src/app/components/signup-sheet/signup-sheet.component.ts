@@ -1,3 +1,5 @@
+import { Validators } from '@angular/forms';
+import { environment } from './../../../environments/environment';
 import { Component } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
@@ -10,7 +12,8 @@ import { HttpClient } from '@angular/common/http';
 export class SignupSheetComponent implements OnInit{
   title = 'frontend';
   names:[any];
-  url = '/api/'
+  url = environment.backendURL
+
   constructor(private http:HttpClient) {}
   ngOnInit() {this.getSheet()}
 
@@ -25,19 +28,11 @@ export class SignupSheetComponent implements OnInit{
     );
   }
 
-  firstName = '';
-  lastName = '';
-  
-  addName() {
-    this.http.post(this.url, {
-      firstName: this.firstName,
-      lastName: this.lastName
-    }).subscribe(
+  addName(event) {
+    this.http.post(this.url, event).subscribe(
       result => { this.getSheet() },
       error => { console.log(error) }
     );
-    this.firstName = '';
-    this.lastName = '';
   }
 
   
@@ -47,8 +42,36 @@ export class SignupSheetComponent implements OnInit{
       error => { console.log(error) }
     );
   }
-}
 
+  inputForm = {
+    title: 'Signup Sheet',
+    groups: [
+      {
+        title: 'personalInfo',
+        components: [
+          {
+            type: 'input',
+            name: 'firstName',
+            validators: [
+              Validators.required,
+              Validators.minLength(3),
+              Validators.maxLength(25)
+            ]
+          },
+          {
+            type: 'input',
+            name: 'lastName',
+            validators: [
+              Validators.required,
+              Validators.minLength(8),
+              Validators.maxLength(20)
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}
 
 interface Response {
   body: [any]

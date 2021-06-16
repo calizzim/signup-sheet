@@ -6,12 +6,14 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SignupSheetComponent } from './components/signup-sheet/signup-sheet.component';
 import { McalizziFormComponent } from './components/mcalizzi-form/mcalizzi-form.component';
+import { VarToStringPipe } from './pipes/var-to-string.pipe';
 
 @NgModule({
   declarations: [
     AppComponent,
     SignupSheetComponent,
-    McalizziFormComponent
+    McalizziFormComponent,
+    VarToStringPipe
   ],
   imports: [
     BrowserModule,

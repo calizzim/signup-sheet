@@ -23,7 +23,7 @@ export class McalizziFormComponent implements OnInit {
   }
 
   getMessage(groupName:string, name:string){
-    const component = this.form.get(`${groupName}.${name}`);
+    const component = this.form.get([groupName,name]);
     const errors:object = component.errors;
     if(!errors) return "looks good";
     if('required' in errors) return `${name} is required`
@@ -48,6 +48,7 @@ export class McalizziFormComponent implements OnInit {
       returnForm[group.title] = formGroup;
     }
     this.returnForm.emit(returnForm)
+    this.form.reset()
   }
   
   ngOnInit(): void {

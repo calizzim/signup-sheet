@@ -41,7 +41,7 @@ app.get('/', async (req, res) => {
 
 //add person to list
 app.post('/', async (req,res) => {
-    const {error, value} = personSchema.validate(req.body);
+    const {error, value} = personSchema.validate(req.body.personalInfo);
     if(error) return res.status(400).send(error.details[0].message);
     const person = Person(value);
     const result = await person.save();
