@@ -3,16 +3,21 @@ import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { SignupSheetComponent } from './components/signup-sheet/signup-sheet.component';
+import { McalizziFormComponent } from './components/mcalizzi-form/mcalizzi-form.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    SignupSheetComponent,
+    McalizziFormComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
